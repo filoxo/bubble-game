@@ -1,6 +1,6 @@
 {
-  "name": "TODO",
-  "description": "TODO",
+  "name": "bubble-game",
+  "description": "A simple bubble popping game. Because I feel like making one.",
   "version": "0.0.1",
   "scripts": {
     "dev": "node server.js",
