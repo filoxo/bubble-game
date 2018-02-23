@@ -6,6 +6,7 @@
     "dev": "sapper dev",
     "build": "sapper build",
     "export": "sapper export",
+    "postexport": "now --static --public ./dist",
     "start": "cross-env NODE_ENV=production node .sapper/server.js",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
