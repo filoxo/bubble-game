@@ -1,4 +1,4 @@
-<button type="button" class="bubble" on:click="pop()" id={{`${id}`}} style="background-color: {{color}}">
+<button type="button" class="bubble {{popped ? 'popped' : ''}}" on:click="pop()" id={{`${id}`}} style="background-color: {{color}}">
 </button>
 
 <style>
@@ -10,9 +10,16 @@
     padding: 0;
     height: 40px;
     width: 40px;
+    transition: .1s ease-in-out;
 }
 .bubble:focus {
     outline: none; /* hail satan */
+}
+.bubble.popped {
+    transform: scale(3);
+    opacity: 0;
+    pointer-events: none;
+    transition: .5s ease-in-out;
 }
 </style>
 <script>
@@ -23,7 +30,9 @@ export default {
 	},
     methods: {
         pop() {
-            console.log('pop')
+            this.fire('pop')
+            this.set({popped: true})
+            setTimeout(() => {this.set({popped: false})}, 1500)
         }
     }
 }
