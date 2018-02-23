@@ -4,8 +4,9 @@
 <:Window on:resize='calculateBubbles()' />
 <main>
 {{#each bubbles as b }}
-	<Bubble id={{b}}/>
+	<Bubble id={{b}} on:pop='refs.popsound.play()'/>
 {{/each}}
+<audio src="/blop.mp3" ref:popsound/>
 </main>
 
 <style>
