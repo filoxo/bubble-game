@@ -1,58 +1,50 @@
 <:Head>
-	<title>Sapper project template</title>
+	<title>Bubbles Game</title>
 </:Head>
-
-<Layout page='home'>
-	<h1>Great success!</h1>
-
-	<figure>
-		<img src='/great-success.png'>
-		<figcaption>HIGH FIVE!</figcaption>
-	</figure>
-
-	<p><strong>Try editing this file (routes/index.html) to test hot module reloading.</strong></p>
-</Layout>
+<:Window on:resize='calculateBubbles()' />
+<main>
+{{#each bubbles as b }}
+	<Bubble id={{b}}/>
+{{/each}}
+</main>
 
 <style>
-	h1, figure, p {
-		text-align: center;
-		margin: 0 auto;
-	}
-
-	h1 {
-		font-size: 2.8em;
-		text-transform: uppercase;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
-
-	figure {
-		margin: 0 0 1em 0;
-	}
-
-	img {
-		width: 100%;
-		max-width: 400px;
-		margin: 0 0 1em 0;
-	}
-
-	p {
-		margin: 1em auto;
-	}
-
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
-	}
+main {
+	display: flex;
+	flex-wrap: wrap;
+	height: 100vh;	
+	justify-content: space-evenly;
+	width: 100vw;
+}
 </style>
 
 <script>
-	import Layout from './_components/Layout.html';
+import Bubble from './_components/Bubble.html'
+const BUBBLE_SIZE = 50 // Magic; width + margin
 
-	export default {
-		components: {
-			Layout
+export default {
+	oncreate () {
+    this.calculateBubbles()
+  },
+	data: () => ({
+		count: 0
+  }),
+  computed: {
+    bubbles: count => {
+      return Array.from({length: count}, (_, i) => i.toString())
+    }
+  },
+	components: {
+		Bubble
+	},
+	methods: {
+		calculateBubbles () {
+			const width = window && window.innerWidth || document && document.documentElement && document.documentElement.clientWidth,
+			    height = window && window.innerHeight || document && document.documentElement && document.documentElement.clientHeight,
+				bubblesWide = Math.floor(width / BUBBLE_SIZE),
+				bubblesHigh = Math.floor(height/ BUBBLE_SIZE)
+				this.set({count: bubblesWide * bubblesHigh})
 		}
-	};
+	}
+};
 </script>
